@@ -7,22 +7,33 @@ class CoursesListPage(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
 
-        self.courses_title = page.get_by_test_id('courses-list-toolbar-title-text')
-        self.create_course_button = page.get_by_test_id('courses-list-toolbar-create-course-button')
+        self.courses_title = page.get_by_test_id(
+            'courses-list-toolbar-title-text')
+        self.create_course_button = page.get_by_test_id(
+            'courses-list-toolbar-create-course-button')
 
         self.course_title = page.get_by_test_id('course-widget-title-text')
         self.course_image = page.get_by_test_id('course-preview-image')
-        self.course_max_score_text = page.get_by_test_id('course-max-score-info-row-view-text')
-        self.course_min_score_text = page.get_by_test_id('course-min-score-info-row-view-text')
-        self.course_estimated_time_text = page.get_by_test_id('course-estimated-time-info-row-view-text')
+        self.course_max_score_text = page.get_by_test_id(
+            'course-max-score-info-row-view-text')
+        self.course_min_score_text = page.get_by_test_id(
+            'course-min-score-info-row-view-text')
+        self.course_estimated_time_text = page.get_by_test_id(
+            'course-estimated-time-info-row-view-text')
 
-        self.course_menu_button = page.get_by_test_id('course-view-menu-button')
-        self.course_edit_menu_item = page.get_by_test_id('course-view-edit-menu-item')
-        self.course_delete_menu_item = page.get_by_test_id('course-view-delete-menu-item')
+        self.course_menu_button = page.get_by_test_id(
+            'course-view-menu-button')
+        self.course_edit_menu_item = page.get_by_test_id(
+            'course-view-edit-menu-item')
+        self.course_delete_menu_item = page.get_by_test_id(
+            'course-view-delete-menu-item')
 
-        self.empty_view_icon = page.get_by_test_id('courses-list-empty-view-icon')
-        self.empty_view_title = page.get_by_test_id('courses-list-empty-view-title-text')
-        self.empty_view_description = page.get_by_test_id('courses-list-empty-view-description-text')
+        self.empty_view_icon = page.get_by_test_id(
+            'courses-list-empty-view-icon')
+        self.empty_view_title = page.get_by_test_id(
+            'courses-list-empty-view-title-text')
+        self.empty_view_description = page.get_by_test_id(
+            'courses-list-empty-view-description-text')
 
     def check_visible_courses_title(self):
         expect(self.courses_title).to_be_visible()
@@ -59,10 +70,12 @@ class CoursesListPage(BasePage):
         expect(self.course_title.nth(index)).to_have_text(title)
 
         expect(self.course_max_score_text.nth(index)).to_be_visible()
-        expect(self.course_max_score_text.nth(index)).to_have_text(f"Max score: {max_score}")
+        expect(self.course_max_score_text.nth(index)).to_have_text(
+            f"Max score: {max_score}")
 
         expect(self.course_min_score_text.nth(index)).to_be_visible()
-        expect(self.course_min_score_text.nth(index)).to_have_text(f"Min score: {min_score}")
+        expect(self.course_min_score_text.nth(index)).to_have_text(
+            f"Min score: {min_score}")
 
         expect(self.course_estimated_time_text.nth(index)).to_be_visible()
         expect(self.course_estimated_time_text.nth(index)).to_have_text(

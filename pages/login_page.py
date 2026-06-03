@@ -10,8 +10,10 @@ class LoginPage(BasePage):
         self.login_form_component = LoginFormComponent(page)
 
         self.login_button = page.get_by_test_id('login-page-login-button')
-        self.registration_link = page.get_by_test_id('login-page-registration-link')
-        self.wrong_email_or_password_alert = page.get_by_test_id('login-page-wrong-email-or-password-alert')
+        self.registration_link = page.get_by_test_id(
+            'login-page-registration-link')
+        self.wrong_email_or_password_alert = page.get_by_test_id(
+            'login-page-wrong-email-or-password-alert')
 
     def click_login_button(self):
         self.login_button.click()
@@ -21,4 +23,5 @@ class LoginPage(BasePage):
 
     def check_visible_wrong_email_or_password_alert(self):
         expect(self.wrong_email_or_password_alert).to_be_visible()
-        expect(self.wrong_email_or_password_alert).to_have_text("Wrong email or password")
+        expect(self.wrong_email_or_password_alert).to_have_text(
+            "Wrong email or password")

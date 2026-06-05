@@ -1,6 +1,8 @@
 from playwright.sync_api import Page
 
 from components.courses.course_view_component import CourseViewComponent
+from components.courses.course_view_menu_component import \
+    CourseViewMenuComponent
 from components.courses.courses_list_toolbar_view_component import \
     CoursesListToolbarViewComponent
 from components.navigation.navbar_component import NavbarComponent

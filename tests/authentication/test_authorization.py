@@ -1,5 +1,6 @@
 import allure
 import pytest
+from allure_commons.types import Severity
 
 from pages.authentication.login_page import LoginPage
 from pages.authentication.registration_page import RegistrationPage
@@ -8,7 +9,6 @@ from tools.allure.epics import AllureEpic
 from tools.allure.features import AllureFeature
 from tools.allure.stories import AllureStory
 from tools.allure.tags import AllureTags
-from allure_commons.types import Severity
 
 
 @pytest.mark.regression
@@ -17,6 +17,9 @@ from allure_commons.types import Severity
 @allure.epic(AllureEpic.LMS)
 @allure.feature(AllureFeature.AUTHENTICATION)
 @allure.story(AllureStory.AUTHORIZATION)
+@allure.parent_suite(AllureEpic.LMS)
+@allure.suite(AllureFeature.AUTHENTICATION)
+@allure.sub_suite(AllureStory.AUTHORIZATION)
 class TestAuthorization:
     @allure.tag(AllureTags.USER_LOGIN)
     @allure.title('User login with correct email and password')
@@ -68,8 +71,13 @@ class TestAuthorization:
     @allure.tag(AllureTags.NAVIGATION)
     @allure.title('Navigation from login page to registration page')
     @allure.severity(Severity.NORMAL)
-    def test_navigate_from_authorization_to_registration(self, login_page: LoginPage, registration_page: RegistrationPage):
-        login_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login')
+    def test_navigate_from_authorization_to_registration(self,
+                                                         login_page: LoginPage,
+                                                         registration_page: RegistrationPage):
+        login_page.visit(
+            'https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login')
         login_page.click_registration_link()
 
-        registration_page.registration_form_component.check_visible(email="", username="", password="")
+        registration_page.registration_form_component.check_visible(email="",
+                                                                    username="",
+                                                                    password="")

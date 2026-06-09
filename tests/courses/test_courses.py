@@ -17,6 +17,9 @@ from tools.allure.tags import AllureTags
 @allure.epic(AllureEpic.LMS)
 @allure.feature(AllureFeature.COURSES)
 @allure.story(AllureStory.COURSES)
+@allure.parent_suite(AllureEpic.LMS)
+@allure.suite(AllureFeature.COURSES)
+@allure.sub_suite(AllureStory.COURSES)
 class TestCourses:
     @allure.title('Create course')
     @allure.severity(Severity.CRITICAL)

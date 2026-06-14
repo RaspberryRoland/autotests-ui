@@ -1,5 +1,8 @@
 from playwright.sync_api import sync_playwright, Request, Response
 
+from tools.routes import AppRoute
+
+
 def log_request(request: Request):
     print(f'Request: {request.url}')
 
@@ -10,7 +13,7 @@ with sync_playwright() as playwright:
     browser = playwright.firefox.launch(headless=False)
     page = browser.new_page()
 
-    page.goto('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login')
+    page.goto(AppRoute.LOGIN)
 
     page.on('request', log_request)
     page.remove_listener('request', log_request)

@@ -19,8 +19,8 @@ def registration_page(page: Page) -> RegistrationPage:
 
 
 @pytest.fixture
-def dashboard_page(page_with_state: Page) -> DashboardPage:
-    return DashboardPage(page=page_with_state)
+def dashboard_page(page: Page) -> DashboardPage:
+    return DashboardPage(page=page)
 
 
 @pytest.fixture

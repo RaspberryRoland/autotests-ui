@@ -26,8 +26,9 @@ def initialize_playwright_page(
 
     # Используем settings.tracing_dir
     context.tracing.stop(path=settings.tracing_dir.joinpath(f'{test_name}.zip'))
-    browser.close()
+
 
     # Используем settings.tracing_dir
     allure.attach.file(settings.tracing_dir.joinpath(f'{test_name}.zip'), name='trace', extension='zip')
     allure.attach.file(page.video.path(), name='video', attachment_type=allure.attachment_type.WEBM)
+    browser.close()

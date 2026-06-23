@@ -1,6 +1,6 @@
-from enum import Enum
+from enum import StrEnum
 
-class AppRoute(str, Enum):
+class AppRoute(StrEnum):
     LOGIN = "./#/auth/login"
     REGISTRATION = "./#/auth/registration"
     DASHBOARD = "./#/dashboard"

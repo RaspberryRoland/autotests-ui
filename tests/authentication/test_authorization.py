@@ -26,7 +26,7 @@ class TestAuthorization:
 
     @pytest.mark.xdist_group(name="authorization-group")
     @allure.tag(AllureTags.USER_LOGIN)
-    @allure.title('User login with correct email and password')
+    @allure.title('User login with correct email and password ')
     @allure.severity(Severity.BLOCKER)
     def test_successful_authorization(
             self,

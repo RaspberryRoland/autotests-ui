@@ -63,10 +63,10 @@ jobs:
           allure_results: allure-results  # Путь к результатам
           allure_history: allure-history  # Папка с историей отчётов (для графиков и сравнения)
 
-#      - name: Deploy report to Github Pages
-#        if: always()  # Выполняем даже если предыдущие шаги упали
-#        uses: peaceiris/actions-gh-pages@v4  # Деплой на GitHub Pages
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}  # Используем встроенный GitHub токен
-#          publish_branch: gh-pages  # Ветка для публикации отчёта
-#          publish_dir: allure-history  # Папка с готовым HTML отчётом
+      - name: Deploy report to Github Pages
+        if: always()  # Выполняем даже если предыдущие шаги упали
+        uses: peaceiris/actions-gh-pages@v4  # Деплой на GitHub Pages
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Используем встроенный GitHub токен
+          publish_branch: gh-pages  # Ветка для публикации отчёта
+          publish_dir: allure-history  # Папка с готовым HTML отчётом

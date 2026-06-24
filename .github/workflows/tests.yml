@@ -31,28 +31,42 @@ jobs:
         run: |
           pytest -m regression --alluredir=allure-results --numprocesses 2
 
-      - name: Get Allure history
-        uses: actions/checkout@v4
-        if: always()
-        continue-on-error: true
+      - name: Upload Allure results
+        if: always()  # Всегда выполняем (даже если предыдущий шаг упал)
+        uses: actions/upload-artifact@v4  # Загружаем артефакт в CI
         with:
-          ref: gh-pages
-          path: gh-pages
+          name: allure-results  # Имя артефакта
+          path: allure-results  # Путь к директории с результатами Allure
 
-      - name: Generate Allure Report with history
-        uses: simple-elf/allure-report-action@v1.14
-        if: always()
-        id: allure-report
-        with:
-          allure_results: allure-results # папка с результатами тестов
-          gh_pages: gh-pages
-          allure_report: allure-report
-          allure_history: allure-history # папка для хранения истории отчетов
+  publish-report:
+    if: always()  # Джоба будет выполнена вне зависимости от успеха или неуспеха run-tests
+    needs: [ run-tests ]  # Выполняется после успешного (или завершённого) run-tests
+    runs-on: ubuntu-latest  # Тоже запускается в Ubuntu
 
-      - name: Deploy report to Github Pages # публикация отчета на github pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v4
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4  # Клонируем репозиторий
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # токен для доступа к репозиторию
-          publish_branch: gh-pages # публикуем отчет в ветку gh-pages
-          publish_dir: allure-history # папка где находится сгенерированный отчет
+          ref: gh-pages  # Клонируем ветку gh-pages
+          path: gh-pages  # Указываем путь, куда клонировать
+
+      - name: Download Allure results
+        uses: actions/download-artifact@v4  # Загружаем ранее загруженные результаты
+        with:
+          name: allure-results  # Имя артефакта
+          path: allure-results  # Путь куда распаковать
+
+      - name: Allure Report action from marketplace
+        uses: simple-elf/allure-report-action@v1.12  # Генерируем Allure-отчёт
+        if: always()  # Выполняем даже при ошибке
+        with:
+          allure_results: allure-results  # Путь к результатам
+          allure_history: allure-history  # Папка с историей отчётов (для графиков и сравнения)
+
+      - name: Deploy report to Github Pages
+        if: always()  # Выполняем даже если предыдущие шаги упали
+        uses: peaceiris/actions-gh-pages@v4  # Деплой на GitHub Pages
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Используем встроенный GitHub токен
+          publish_branch: gh-pages  # Ветка для публикации отчёта
+          publish_dir: allure-history  # Папка с готовым HTML отчётом

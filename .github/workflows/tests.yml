@@ -50,11 +50,11 @@ jobs:
           ref: gh-pages  # Клонируем ветку gh-pages
           path: gh-pages  # Указываем путь, куда клонировать
 
-#      - name: Download Allure results
-#        uses: actions/download-artifact@v4  # Загружаем ранее загруженные результаты
-#        with:
-#          name: allure-results  # Имя артефакта
-#          path: allure-results  # Путь куда распаковать
+      - name: Download Allure results
+        uses: actions/download-artifact@v4  # Загружаем ранее загруженные результаты
+        with:
+          name: allure-results  # Имя артефакта
+          path: allure-results  # Путь куда распаковать
 #
 #      - name: Allure Report action from marketplace
 #        uses: simple-elf/allure-report-action@v1.14  # Генерируем Allure-отчёт

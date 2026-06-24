@@ -40,10 +40,13 @@ jobs:
           path: gh-pages
 
       - name: Generate Allure Report with history
-        uses: simple-elf/allure-report-action@v1.13
+        uses: simple-elf/allure-report-action@v1.14
         if: always()
+        id: allure-report
         with:
           allure_results: allure-results # папка с результатами тестов
+          gh_pages: gh-pages
+          allure_report: allure-report
           allure_history: allure-history # папка для хранения истории отчетов
 
       - name: Deploy report to Github Pages # публикация отчета на github pages

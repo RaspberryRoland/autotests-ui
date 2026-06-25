@@ -14,12 +14,12 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4 # вот тут проверить версию актуальную ToDo, клонируем репозиторий в CI-окружение
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # вот тут проверить версию актуальную ToDo устанавливаем питон
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Install dependencies
         run: |
@@ -33,7 +33,7 @@ jobs:
 
       - name: Upload Allure results
         if: always()  # Всегда выполняем (даже если предыдущий шаг упал)
-        uses: actions/upload-artifact@v7  # Загружаем артефакт в CI
+        uses: actions/upload-artifact@v4  # Загружаем артефакт в CI
         with:
           name: allure-results  # Имя артефакта
           path: allure-results  # Путь к директории с результатами Allure
@@ -45,13 +45,13 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v7  # Клонируем репозиторий
+        uses: actions/checkout@v4  # Клонируем репозиторий
         with:
           ref: gh-pages  # Клонируем ветку gh-pages
           path: gh-pages  # Указываем путь, куда клонировать
 
       - name: Download Allure results
-        uses: actions/download-artifact@v7  # Загружаем ранее загруженные результаты
+        uses: actions/download-artifact@v4  # Загружаем ранее загруженные результаты
         with:
           name: allure-results  # Имя артефакта
           path: allure-results  # Путь куда распаковать
@@ -61,8 +61,6 @@ jobs:
         if: always()  # Выполняем даже при ошибке
         with:
           allure_results: allure-results  # Путь к результатам
-          gh_pages: gh-pages
-          allure_report: allure-report
           allure_history: allure-history  # Папка с историей отчётов (для графиков и сравнения)
 
       - name: Deploy report to Github Pages

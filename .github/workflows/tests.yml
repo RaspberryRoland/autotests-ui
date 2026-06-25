@@ -17,9 +17,9 @@ jobs:
         uses: actions/checkout@v4 # вот тут проверить версию актуальную ToDo, клонируем репозиторий в CI-окружение
 
       - name: Set up Python
-        uses: actions/setup-python@v5 # вот тут проверить версию актуальную ToDo устанавливаем питон
+        uses: actions/setup-python@v6 # вот тут проверить версию актуальную ToDo устанавливаем питон
         with:
-          python-version: '3.12'
+          python-version: '3.14'
 
       - name: Install dependencies
         run: |
@@ -33,7 +33,7 @@ jobs:
 
       - name: Upload Allure results
         if: always()  # Всегда выполняем (даже если предыдущий шаг упал)
-        uses: actions/upload-artifact@v4  # Загружаем артефакт в CI
+        uses: actions/upload-artifact@v6  # Загружаем артефакт в CI
         with:
           name: allure-results  # Имя артефакта
           path: allure-results  # Путь к директории с результатами Allure
